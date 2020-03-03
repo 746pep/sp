@@ -1,0 +1,49 @@
+!/bin/bash
+echo "Prokofjev Evgeniy,rabota s arhivami, vibberaem neobhodimoe arhivirovat ili razarhivirovat=>v 1 sly4ae vibiraem katalog dlya arhivacii i name, vo vtorom name arhivLa"
+while :
+do
+echo "Viberi deystvie
+1)arhiviruem/n
+2)razarhiviryem"
+read sn
+        if [ "$sn" -eq "1" ]
+                then
+
+
+        echo "File name:"
+        read qwer
+        echo "Tar name:"
+        read qwer2
+        fff="tar -cvf ${qwer2}.tar $qwer"
+        eval $fff
+
+
+        elif [ "$sn" -eq "2" ]
+
+                then
+
+                echo "Tar name:"
+                read qwer2
+                fff="tar -xvf ${qwer2}.tar"
+                eval $fff
+
+        else
+        echo "Error"
+fi
+while :
+        do
+        echo
+        echo "Continue?(y/n):"
+        read cont
+        if test $cont = "y"; then
+                echo
+                break
+        elif test $cont = "n"; then
+                echo "Zakrit"
+                exit
+        else
+                echo "Input Error"
+        fi
+done
+done
+~      

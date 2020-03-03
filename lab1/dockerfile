@@ -1,0 +1,5 @@
+FROM ubuntu 
+MAINTAINER Prokofjev Evgeniy 
+RUN apt-get update && apt-get install -y vim && apt-get install -y tar
+WORKDIR /lab1
+COPY /files .
