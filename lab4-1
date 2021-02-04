@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <cstdlib>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/mman.h>
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    pid_t f;
+    int t, j=0;
+    char str[20], str1[20], str2[20], str3[20];
+    const char *c="";
+    int range;
+    cout << "введите число\n";
+    cin >> range;
+    int *a = new int[range];
+    for (int i = 0; i <= range; i++) {
+    	a[i] = i;
+        cout << a[i] << " ";
+    }
+
+    cout << endl;
+    for (int i = 1; i < range; i = i + 4)
+    {
+        t = -1;
+        sprintf(str, "%d", a[i]);
+        if(i >= range - 1)
+        	sprintf(str1, "%d", 0);
+        else
+        	sprintf(str1, "%d", a[i+1]);
+        if(i >= range - 2)
+        	sprintf(str2, "%d", 0);
+        else
+        	sprintf(str2, "%d", a[i+2]);
+        if(i >= range - 3)
+        	sprintf(str3, "%d", 0);
+        else
+        	sprintf(str3, "%d", a[i+3]);
+        switch (fork())
+        {
+            case -1:
+                cout << "Не работает\n";
+                break;
+            case 0:
+                cout << "Дочерний PID: " << getpid() << endl;
+                execl("./2", "./2", str, str1, str2, str3, NULL);
+                break;
+            default:
+                cout << endl << "Родительский PID: " << getpid() << endl;
+                wait(&t);
+                j += WEXITSTATUS(t);
+                break;
+        }
+    }
+    cout << endl << "Всего простых чисел: " << j << endl;
+    delete [] a;
+    return (0);
+} 
